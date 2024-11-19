@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+New Post
+{% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <div class=" container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">Blog App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class=" collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'index' %}">Home
+                    <span class="visuak lly-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'new-post'%}">New Post</a>
+                </li>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+{% block content %}
+
+
+<br>
+<form method="POST" action="#">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Add Post</legend>
+      <div>
+        <label for="exampleSelect1" class="form-label mt-4">Category</label>
+        <select name="category" class="form-select" id="exampleSelect1">
+          {% for category in categories%}
+            <option value="{{category.pk}}">{{category.CategoryName}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="exampleInputTitle" class="form-label mt-4">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleInputTitle" aria-describedby="emailHelp" placeholder="Enter Title">
+      </div>
+      <div>
+        <label for="exampleTextarea" class="form-label mt-4">Intro</label>
+        <textarea class="form-control" name="intro" id="exampleTextarea" rows="3  "></textarea>
+      </div>
+      <div>
+      <label for="exampleTextarea" class="form-label mt-4">Body</label>
+      <textarea class="form-control" name="body" id="exampleTextarea" rows="3"></textarea>
+    </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>  
+</form>
+{% endblock %}
+
