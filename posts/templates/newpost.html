@@ -4,22 +4,22 @@
 New Post
 {% endblock %}
 {% block nav %}
-<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class=" container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}">Blog App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class=" collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'index' %}">Home
-                    <span class="visuak lly-hidden">(current)</span>
+                    <a class="nav-link " href="{% url 'index' %}">Home
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'new-post'%}">New Post</a>
                 </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -31,7 +31,10 @@ New Post
 <br>
 <form method="POST" action="#">
   {% csrf_token %}
-  <fieldset>
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-outline-primary">Submit</button>
+
+  <!-- <fieldset>
     <legend>Add Post</legend>
       <div>
         <label for="exampleSelect1" class="form-label mt-4">Category</label>
@@ -54,9 +57,7 @@ New Post
       <textarea class="form-control" name="body" id="exampleTextarea" rows="3"></textarea>
     </div>
       <br>
-      <button type="submit" class="btn btn-primary">Submit</button>
-  </fieldset>
-</form>  
+  </fieldset> -->
 </form>
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-index
+Edit Post | {{ post.title}}
 {% endblock %}
 
 {% block nav %}
@@ -12,7 +12,7 @@ index
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class=" collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav nav-underline me-auto">
+            <ul class="navbar-nav me-auto nav-underline">
                 <li class="nav-item">
                     <a class="nav-link " href="{% url 'index' %}">Home
                     </a>
@@ -26,28 +26,15 @@ index
 </nav>
 
 {% endblock %}
-
-
-
 {% block content %}
-    <h1>This is the Index Page.</h1>
-    <hr>
-    <h3>Recent Posts</h3>
-        {% for post in posts%}
-            <div class="card" >
-                <a class="hover:text-white text-decoration-none text-black" href="{% url 'post' post.slug%}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{post.title}}</h5>
-                        <!-- <p class="card-text">{{authors.username}}</p> -->
-                        <p class="card-text">{{post.intro}}</p>
-                        <p class="card-text">{{post.body}}</p>
-                        <small><b>Last Modified:</b> {{post.created_at | timesince }}</small><br>  
-                        <!-- timesince , time , timeuntil-->
-                    </div>
-                </a>
-            </div>
-            <br>
-        {% endfor%}
 
+
+<br>
+<h3>Edit Post</h3>
+<form method="POST" action="#">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">Submit</button>
+</form>
 {% endblock %}
 

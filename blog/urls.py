@@ -4,9 +4,11 @@ from posts import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/' , views.index , name='index'),
-    path('post/<slug>' , views.post , name = 'post'),
+    path('' , views.index , name='index'),
     path('newpost/' , views.newpost , name='new-post'),
+    path('<slug:slug>/' , views.post , name = 'post'),
+    path('edit/<slug:slug>/' , views.editpost , name='edit-post'),
+    path('delete/<slug:slug>/' , views.deletepost , name='delete-post'),
 ]
 
 

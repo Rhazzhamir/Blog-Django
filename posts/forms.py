@@ -1,14 +1,17 @@
-from django.forms import ModelForms
+from django.forms import ModelForm
 from posts.models import Post
 
-class postForm(ModelForms):
-    class meta:
+
+class PostForm(ModelForm):
+    class Meta:
         model = Post
-        fields = ['category' , 'title' , 'intro' , 'body' , ]
+        fields = '__all__'
+        exclude = ['slug' , ]
+        # fields = ['category' , 'title' , 'intro' , 'body' , ]
 
 
 
 
 
         
-    16:50
+    # 16:50

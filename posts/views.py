@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect
 from posts.models import Post
 from posts.models import Category
 from django.contrib.auth.models import User
-from django.utils.text import slugify
-from posts.forms import postForm
+# from django.utils.text import slugify
+from posts.forms import PostForm
 # Create your views here.
 
 def index(request):
@@ -26,27 +26,53 @@ def post(request , slug):
     return render(request , 'post.html' , context)
 
 def newpost(request):
-    form = postForm()
-    category = Category.objects.all()
+    form = PostForm()
+    # category = Category.objects.all()
     
     if request.method == 'POST':
-        category = request.POST.get('category')
-        title = request.POST.get('title')
-        intro = request.POST.get('intro')
-        body = request.POST.get('body')
-        if category and title:
-            category = Category.objects.get(pk = category)
-            Post.objects.create(
-                category = category,
-                title = title,
-                slug=slugify(title),
-                intro = intro,
-                body = body,
-            )
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect('index')
+        
+        # category = request.POST.get('category')
+        # title = request.POST.get('title')
+        # intro = request.POST.get('intro')
+        # body = request.POST.get('body')
+        # if category and title:
+        #     category = Category.objects.get(pk = category)
+        #     Post.objects.create(
+        #         category = category,
+        #         title = title,
+        #         slug=slugify(title),
+        #         intro = intro,
+        #         body = body,
+        #     )
 
     context =  {
         # 'categories' : category,
         'form': form,
     }
     return render(request , 'newpost.html' , context)
+
+def editpost(request , slug):
+    post = Post.objects.get(slug=slug)
+    form = PostForm(instance=post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST , instance = post)
+
+        if form.is_valid():
+            form.save()
+            return redirect('post' , slug=post.slug)
+    
+    context = {
+        'post' : post,
+        'form': form
+    }
+    return render(request , 'editpost.html' , context )
+
+def deletepost(request , slug):
+    post = Post.objects.get(slug=slug)
+    post.delete()
+    return redirect('index')
