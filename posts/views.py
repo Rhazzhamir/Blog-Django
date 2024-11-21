@@ -1,6 +1,7 @@
 from django.shortcuts import render , redirect
 from posts.models import Post
 from posts.models import Category
+from posts.models import Comment
 from django.contrib.auth.models import User
 # from django.utils.text import slugify
 from posts.forms import PostForm
@@ -76,3 +77,20 @@ def deletepost(request , slug):
     post = Post.objects.get(slug=slug)
     post.delete()
     return redirect('index')
+
+def comments(request, slug):
+    post = Post.objects.get(slug=slug)
+    commentText = Comment.objects.get()
+    if request.method == "POST":
+        comment_text = request.POST.get('comment')  # Get the comment text from the form
+        if comment_text:
+            Comment.objects.create(
+                post=post,
+                comments=comment_text, 
+                commentText = commentText # Create the new comment linked to the post
+            )
+            return redirect('post', slug=slug)  # Redirect back to the same post page after submitting the comment
+    
+    return redirect('post', slug=slug)  # Redirect in case of GET or any other method
+ # Redirect back to the post page after submitting the comment
+

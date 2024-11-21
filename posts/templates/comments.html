@@ -1,0 +1,11 @@
+{% extends 'post.html'%}
+
+{% block comment%}
+<h2>Comments</h2>
+<ul>
+    {% for comment in post.comment_set.all %}
+        <li>{{ comment.comments }}</li>  
+    {% endfor %}
+</ul>
+
+{% endblock %}
